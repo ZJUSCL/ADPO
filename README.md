@@ -16,54 +16,39 @@ ADPO is a unified reinforcement learning framework that jointly optimizes answer
 
 - **[2026-03-07]** We release the official grounding experiment code for ADPO.
 
----
-
 <a name="quick-start"></a>
 ## 🚀 Quick Start
 
 ### 💻 Installation
 
 ```bash
-conda create -n adpo python=3.11 -y
+conda create -y -n adpo python=3.11
 conda activate adpo
 bash setup.sh
 ```
 
----
-
 <a name="dataset"></a>
 ## 📁 Dataset
-The data setup follows the [VLM-R1](https://github.com/om-ai-lab/VLM-R1). We use the same REC data setup as the **Referring Expression Comprehension (REC)** section of VLM-R1:
 
-- **Training**: RefCOCO / RefCOCO+ / RefCOCOg
-- **Evaluation**: LISA-Grounding
-
+Following [VLM-R1](https://github.com/om-ai-lab/VLM-R1), we train on the RefCOCO dataset and evaluate on the LISA-grounding dataset.
 
 ```bash
 mkdir -p data/vlm-r1
 
+# download dataset
 huggingface-cli download omlab/VLM-R1 --repo-type dataset --include "train2014.zip" --local-dir data/vlm-r1
 huggingface-cli download omlab/VLM-R1 --repo-type dataset --include "rec_jsons_processed.zip" --local-dir data/vlm-r1
 huggingface-cli download omlab/VLM-R1 --repo-type dataset --include "lisa-test.zip" --local-dir data/vlm-r1
-```
 
-Unzip the downloaded files and organize your local paths as needed. For ADPO training with `adpo_jsonl.py`, the three REC training annotation files are:
-
-```bash
+# unzip and organize as following
 /path/to/rec_jsons_processed/refcoco_train.jsonl
 /path/to/rec_jsons_processed/refcocop_train.jsonl
 /path/to/rec_jsons_processed/refcocog_train.jsonl
-```
 
-The corresponding environment variables for training are:
-
-```bash
+# export data path
 export DATA_PATHS="/path/to/refcoco_train.jsonl:/path/to/refcocop_train.jsonl:/path/to/refcocog_train.jsonl"
 export IMAGE_FOLDERS="/path/to/coco:/path/to/coco:/path/to/coco"
 ```
-
-
----
 
 <a name="training"></a>
 ## 🚀 Training
