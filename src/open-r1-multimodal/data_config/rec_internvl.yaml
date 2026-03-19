@@ -1,0 +1,4 @@
+datasets:
+    - json_path: <your-data-path>/rec_jsons_internvl/refcoco_train.json
+    - json_path: <your-data-path>/rec_jsons_internvl/refcocop_train.json
+    - json_path: <your-data-path>/rec_jsons_internvl/refcocog_train.json
