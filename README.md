@@ -6,7 +6,7 @@
 </div>
 
 ## 📖 Overview
-ADPO is a unified reinforcement learning framework that jointly optimizes answer generation and self-verification within a single policy. This code release focuses on the visual grounding setting: we train on **RefCOCO** and evaluate on **LISA-Grounding**.
+ADPO is a unified reinforcement learning framework that jointly optimizes answer generation and self-verification within a single policy.
 
 <p align="center">
   <img src="assets/pipeline.png" alt="Teaser" width="900"/>
@@ -14,7 +14,7 @@ ADPO is a unified reinforcement learning framework that jointly optimizes answer
 
 ## 📰 News
 
-- **[2026-03-07]** We release the official grounding experiment code for ADPO.
+- **[2026-03-07]** We release the visual grounding code for ADPO.
 
 <a name="quick-start"></a>
 ## 🚀 Quick Start
@@ -79,8 +79,6 @@ Merged results are written to `${PREDICTIONS_BASE_DIR}/` and a summary log is sa
 <a name="citation"></a>
 ## 📚 Citation
 
-Please kindly cite our paper if you use our code, data, or results:
-
 ```bibtex
 @misc{qiu2026unifiedgenerationselfverificationvisionlanguage,
       title={Unified Generation and Self-Verification for Vision-Language Models via Advantage Decoupled Preference Optimization},
@@ -92,8 +90,6 @@ Please kindly cite our paper if you use our code, data, or results:
       url={https://arxiv.org/abs/2601.01483},
 }
 ```
-
----
 
 <a name="acknowledgements"></a>
 ## 🙏 Acknowledgements
