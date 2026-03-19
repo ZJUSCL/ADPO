@@ -2,21 +2,11 @@
 
 # Unified Generation and Self-Verification for Vision-Language Models via Advantage Decoupled Preference Optimization
 
-[![Project Website](https://img.shields.io/badge/🌐-Project%20Website-deepgray)](https://ZJUSCL.github.io/ADPO/)[![arXiv](https://img.shields.io/badge/arXiv-2601.01483-b31b1b.svg)](https://arxiv.org/abs/2601.01483)
+[![Project Website](https://img.shields.io/badge/🌐-Project%20Website-deepgray)](https://ZJUSCL.github.io/ADPO/) [![arXiv](https://img.shields.io/badge/arXiv-2601.01483-b31b1b.svg)](https://arxiv.org/abs/2601.01483)
 </div>
 
 ## 📖 Overview
-Official repo for the paper **"Unified Generation and Self-Verification for Vision-Language Models via Advantage Decoupled Preference Optimization"**
-
-ADPO is a unified reinforcement learning framework that jointly optimizes answer generation and self-verification within a single policy. This code release focuses on the **Referring Expression Comprehension (REC)** / visual grounding setting: we train on **RefCOCO / RefCOCO+ / RefCOCOg** and evaluate on **LISA-Grounding**.
-
-<!-- The data setup follows the REC release in [VLM-R1](https://github.com/om-ai-lab/VLM-R1). -->
-
-The repository includes:
-
-- ADPO training code for grounding
-- GRPO grounding baseline code
-- LISA-Grounding evaluation scripts
+ADPO is a unified reinforcement learning framework that jointly optimizes answer generation and self-verification within a single policy. This code release focuses on the visual grounding setting: we train on **RefCOCO** and evaluate on **LISA-Grounding**.
 
 <p align="center">
   <img src="assets/pipeline.png" alt="Teaser" width="900"/>
@@ -36,7 +26,6 @@ The repository includes:
 ```bash
 conda create -n adpo python=3.11 -y
 conda activate adpo
-
 bash setup.sh
 ```
 
