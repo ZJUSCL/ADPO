@@ -6,10 +6,10 @@
 </div>
 
 ## 📖 Overview
+Official repo for the paper **"Unified Generation and Self-Verification for Vision-Language Models via Advantage Decoupled Preference Optimization"**
 
 ADPO is a unified reinforcement learning framework that jointly optimizes answer generation and self-verification within a single policy. This code release focuses on the **Referring Expression Comprehension (REC)** / visual grounding setting: we train on **RefCOCO / RefCOCO+ / RefCOCOg** and evaluate on **LISA-Grounding**.
 
-Official repo for the paper **"Unified Generation and Self-Verification for Vision-Language Models via Advantage Decoupled Preference Optimization"**
 <!-- The data setup follows the REC release in [VLM-R1](https://github.com/om-ai-lab/VLM-R1). -->
 
 The repository includes:
