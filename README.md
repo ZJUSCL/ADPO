@@ -2,7 +2,7 @@
 
 # Unified Generation and Self-Verification for Vision-Language Models via Advantage Decoupled Preference Optimization
 
-[![Project Website](https://img.shields.io/badge/🌐-Project%20Website-deepgray)](https://ZJUSCL.github.io/ADPO/) [![arXiv](https://img.shields.io/badge/arXiv-2601.01483-b31b1b.svg)](https://arxiv.org/abs/2601.01483)
+[![arXiv](https://img.shields.io/badge/arXiv-2601.01483-b31b1b.svg)](https://arxiv.org/abs/2601.01483)
 </div>
 
 ## 📖 Overview
