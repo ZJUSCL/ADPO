@@ -44,88 +44,37 @@ huggingface-cli download omlab/VLM-R1 --repo-type dataset --include "lisa-test.z
 /path/to/rec_jsons_processed/refcoco_train.jsonl
 /path/to/rec_jsons_processed/refcocop_train.jsonl
 /path/to/rec_jsons_processed/refcocog_train.jsonl
-
-# export data path
-export DATA_PATHS="/path/to/refcoco_train.jsonl:/path/to/refcocop_train.jsonl:/path/to/refcocog_train.jsonl"
-export IMAGE_FOLDERS="/path/to/coco:/path/to/coco:/path/to/coco"
 ```
 
 <a name="training"></a>
 ## 🚀 Training
 
-Our main grounding experiments use `src/open-r1-multimodal/src/open_r1/adpo_jsonl.py`, launched via the top-level `train.sh` (which calls `src/open-r1-multimodal/run_scripts/run_adpo_rec.sh`).
-
 > We recommend at least **8 × 80 GB GPUs** (e.g. A100 / H100) for training.
-
-Set the following environment variables before running:
-
-| Variable | Required | Description |
-|---|---|---|
-| `DATA_PATHS` | ✅ | Colon-separated list of training JSONL files (one per dataset) |
-| `IMAGE_FOLDERS` | ✅ | Colon-separated list of image root directories (same order as `DATA_PATHS`) |
-| `MODEL_PATH` | ✅ | Path to the base model (local checkpoint or HF model ID) |
-| `EXP_NAME` | optional | Experiment name, used for output directory (default: `adpo`) |
-| `NPROC` | optional | Number of GPUs per node (default: `4`) |
-| `VLM_R1_ENV_BIN` | optional | Path to conda/venv `bin` directory if `torchrun` is not on `PATH` |
-| `MASTER_PORT` | optional | Master port for distributed training (default: `12349`) |
-
-Then launch training:
 
 ```bash
 export DATA_PATHS="/path/to/refcoco_train.jsonl:/path/to/refcocop_train.jsonl:/path/to/refcocog_train.jsonl"
 export IMAGE_FOLDERS="/path/to/coco:/path/to/coco:/path/to/coco"
 export MODEL_PATH="Qwen/Qwen2.5-VL-7B-Instruct"
-export NPROC=8  # number of GPUs
+export NPROC=8  # number of GPUs per node
 
 bash train.sh
 ```
 
-Key training hyperparameters (configured in `run_adpo_rec.sh`):
-
-- `--reward_funcs accuracy format scoreformat`
-- `--per_device_train_batch_size 8`, `--gradient_accumulation_steps 4`
-- `--num_generations 8`, `--max_completion_length 2048`
-- `--max_steps 1200`, `--save_steps 300`, `--beta 0.04`
-- DeepSpeed ZeRO-3 (`./local_scripts/zero3.json`), `flash_attention_2`, `bf16`
-
----
-
 <a name="evaluation"></a>
 ## 📊 Evaluation
 
-Evaluation is done via `eval.sh`, which runs vLLM inference in parallel across all available GPUs and then merges the per-GPU output files.
-
-Set the following environment variables before running:
-
-| Variable | Required | Description |
-|---|---|---|
-| `DATA_ROOT` | ✅ | Directory containing the dataset JSON files |
-| `IMAGE_ROOT` | ✅ | Directory containing the evaluation images |
-| `MODEL_PATH` | ✅ | Path to the trained model checkpoint |
-| `TEST_DATASET` | optional | Dataset name without extension (default: `lisa_test`) |
-| `N_SAMPLE` | optional | Number of samples per question for best-of-N evaluation (default: `8`) |
-| `PREDICTIONS_BASE_DIR` | optional | Output directory for per-GPU prediction files (auto-generated if unset) |
-
-Then run:
-
 ```bash
 export DATA_ROOT="/path/to/lisa"       # directory containing lisa_test.json
-export IMAGE_ROOT="/path/to/lisa"      # directory containing the LISA images (x['image'] is relative to this)
+export IMAGE_ROOT="/path/to/lisa"      # directory containing the LISA images
 export MODEL_PATH="/path/to/checkpoint"
-export TEST_DATASET="lisa_test"   # evaluates DATA_ROOT/lisa_test.json
-export N_SAMPLE=8
+export TEST_DATASET="lisa_test"        # evaluates DATA_ROOT/lisa_test.json
+export N_SAMPLE=8                      # number of samples per question for best-of-N evaluation
+export PREDICTIONS_BASE_DIR=""	       # output directory for per-GPU prediction files
 
 bash eval.sh
 ```
 
-`eval.sh` automatically:
-1. Detects all available GPUs and distributes samples evenly across them
-2. Runs `src/eval/vllm_inference.py` on each GPU in parallel (temperature `0.2`, top-p `0.99`)
-3. Merges per-GPU outputs with `src/eval/merge_json.py`
-
 Merged results are written to `${PREDICTIONS_BASE_DIR}/` and a summary log is saved under `logs/`.
-
----
 
 <a name="citation"></a>
 ## 📚 Citation
